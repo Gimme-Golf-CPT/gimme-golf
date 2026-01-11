@@ -7,96 +7,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
     
     <style>
-@media (max-width: 768px) {
-    /* MEMBERSHIP PAGE FIX */
-    .membership-container { 
-        grid-template-columns: 1fr !important; 
-        padding: 20px !important;
-    }
-    
-    /* The R399 Membership Card Fix */
-    #memberships .container > div[style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important;
-        padding: 30px 20px !important;
-        text-align: center !important;
-    }
 
-    #memberships div[style*="border-left"] {
-        border-left: none !important;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-left: 0 !important;
-        padding-top: 30px;
-        margin-top: 20px;
-    }
-
-    /* LOCATIONS PAGE FIX */
-    .location-card {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-    }
-
-    .location-image {
-        height: 250px !important;
-        width: 100% !important;
-    }
-
-    /* General Typography Fixes for Mobile */
-    h2 { font-size: 1.8rem !important; }
-    .container { padding: 40px 15px !important; }
+/* 1. RESET & VARIABLES */
+:root {
+    --gimme-green: #0a261d;
+    --gimme-gold: #c5a059;
+    --gimme-white: #ffffff;
+    --gimme-off-white: #f9f9f9;
+    --gimme-text: #1a1a1a;
+    --gimme-grey: #666666;
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-/* RESPONSIVE MOBILE FIXES */
-@media (max-width: 768px) {
-    /* Navigation */
-    nav { padding: 15px 5%; flex-direction: column; gap: 15px; }
-    .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .nav-links a { margin: 5px 10px; font-size: 0.65rem; }
-    .btn-nav-book { width: 100%; margin-left: 0 !important; }
 
-    /* Hero Section */
-    .hero h1 { font-size: 2.8rem; letter-spacing: 8px; }
-    .hero p { font-size: 0.8rem; letter-spacing: 3px; }
+* { box-sizing: border-box; }
 
-    /* Grids (About, FAQ, Footer) */
-    .about-home, 
-    .quick-links, 
-    footer .container > div { 
-        grid-template-columns: 1fr !important; 
-        gap: 40px !important; 
-    }
-
-    /* Adjust About Image to show first or second */
-    .about-image-container { order: -1; } /* Image on top of text on mobile */
-
-    /* Container Spacing */
-    .container { padding: 60px 20px; }
-
-    /* Pricing/Wallet Cards */
-    .wallet-grid { 
-        grid-template-columns: 1fr !important; 
-    }
+body { 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
+    color: var(--gimme-text); 
+    background: var(--gimme-white); 
+    line-height: 1.6; 
+    overflow-x: hidden; 
 }
-@media (max-width: 768px) {
-    /* Target the grid container on the locations page */
-    #locations .container > div[style*="grid-template-columns"] {
-        grid-template-columns: 1fr !important; /* Forces 1 column */
-        gap: 20px !important;
-    }
 
-    /* Target the image and text blocks specifically */
-    #locations .location-image, 
-    #locations div[style*="height: 400px"] {
-        height: 250px !important; /* Make image shorter on mobile */
-        width: 100% !important;
-    }
-    
-    /* Center text on mobile for better look */
-    #locations .location-info,
-    #locations div[style*="padding"] {
-        padding: 0 !important;
-        text-align: center !important;
-    }
+/* 2. NAVIGATION & LOGO */
+nav { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 25px 8%; 
+    background: white; 
+    border-bottom: 1px solid #eee; 
+    position: sticky; 
+    top: 0; 
+    z-index: 2000; 
 }
-/* Update the .logo class to handle the flex layout */
+
 .logo { 
     display: flex; 
     align-items: center; 
@@ -108,64 +54,143 @@
     cursor: pointer; 
     text-transform: uppercase; 
 }
+
 .logo span { font-weight: 800; color: var(--gimme-gold); }
 
-        :root {
-            --gimme-green: #0a261d;
-            --gimme-gold: #c5a059;
-            --gimme-white: #ffffff;
-            --gimme-off-white: #f9f9f9;
-            --gimme-text: #1a1a1a;
-            --gimme-grey: #666666;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
+.nav-links { display: flex; align-items: center; }
 
-        * { box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; margin: 0; color: var(--gimme-text); background: var(--gimme-white); line-height: 1.6; overflow-x: hidden; }
+.nav-links a { 
+    margin-left: 35px; 
+    text-decoration: none; 
+    color: var(--gimme-text); 
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 1.5px; 
+    cursor: pointer; 
+    transition: var(--transition); 
+}
 
-        /* Navigation */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 8%; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 2000; }
-        .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: 5px; color: var(--gimme-green); cursor: pointer; text-transform: uppercase; }
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { margin-left: 35px; text-decoration: none; color: var(--gimme-text); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: var(--transition); }
-        .nav-links a:hover { color: var(--gimme-gold); }
+.nav-links a:hover { color: var(--gimme-gold); }
 
-        /* View Management */
-        .page { display: none; animation: fadeIn 0.6s ease; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* 3. LAYOUT & UI ELEMENTS */
+.container { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
 
-        /* Utility Classes */
-        .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
-        .section-label { color: var(--gimme-gold); font-size: 0.7rem; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 20px; }
-        
-        .btn { padding: 18px 40px; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; border: none; cursor: pointer; display: inline-block; transition: var(--transition); text-align: center; border-radius: 2px; }
-        .btn-nav-book { background: var(--gimme-gold); color: #000 !important; } 
-        .btn-nav-book:hover { background: var(--gimme-green); color: var(--gimme-gold) !important; }
-        .btn-primary { background: var(--gimme-green); color: var(--gimme-gold); } 
-        .btn-primary:hover { background: var(--gimme-gold); color: #000; }
-        
-        /* HERO SECTION - Updated with your new GolfBar URL */
-        .hero { 
-            height: 85vh; 
-            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://golfbar.co.za/wp-content/uploads/2023/08/100-Courses.jpg') center/cover; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; 
-        }
-        .hero h1 { font-size: 5rem; font-weight: 200; letter-spacing: 20px; margin: 0; text-shadow: 0 4px 15px rgba(0,0,0,0.6); }
-        .hero p { font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; margin: 20px 0 30px 0; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+.page { display: none; animation: fadeIn 0.6s ease; }
+.page.active { display: block; }
 
-        /* ABOUT SECTION */
-        .about-home { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-home img { width: 100%; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-        .about-home h2 { font-size: 2.2rem; font-weight: 300; letter-spacing: 2px; margin-top: 0; line-height: 1.2; }
-        .about-home p { margin-bottom: 25px; color: var(--gimme-grey); }
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
 
-        /* QUICK LINKS */
-        .quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 50px; }
-        .link-card { height: 450px; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 40px; color: white; text-decoration: none; border-radius: 4px; cursor: pointer; transition: var(--transition); }
-        .link-card:hover { transform: translateY(-10px); }
-        .link-card:before { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); z-index: 1; }
-        .link-card h3 { position: relative; z-index: 2; letter-spacing: 3px; font-weight: 400; margin: 0; font-size: 1.2rem; }
+.section-label { 
+    color: var(--gimme-gold); 
+    font-size: 0.7rem; 
+    font-weight: 800; 
+    letter-spacing: 4px; 
+    text-transform: uppercase; 
+    display: block; 
+    margin-bottom: 20px; 
+}
+
+.btn { 
+    padding: 18px 40px; 
+    text-decoration: none; 
+    font-size: 0.8rem; 
+    letter-spacing: 2px; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    border: none; 
+    cursor: pointer; 
+    display: inline-block; 
+    transition: var(--transition); 
+    text-align: center; 
+    border-radius: 2px; 
+}
+
+.btn-nav-book { background: var(--gimme-gold); color: #000 !important; } 
+.btn-nav-book:hover { background: var(--gimme-green); color: var(--gimme-gold) !important; }
+.btn-primary { background: var(--gimme-green); color: var(--gimme-gold); } 
+.btn-primary:hover { background: var(--gimme-gold); color: #000; }
+
+.price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* 4. SECTIONS (HERO, ABOUT, CARDS) */
+.hero { 
+    height: 85vh; 
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://golfbar.co.za/wp-content/uploads/2023/08/100-Courses.jpg') center/cover; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; 
+}
+
+.hero h1 { font-size: 5rem; font-weight: 200; letter-spacing: 20px; margin: 0; text-shadow: 0 4px 15px rgba(0,0,0,0.6); }
+.hero p { font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; margin: 20px 0 30px 0; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+
+.about-home { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-home img { width: 100%; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+.about-home h2 { font-size: 2.2rem; font-weight: 300; letter-spacing: 2px; margin-top: 0; line-height: 1.2; }
+.about-home p { margin-bottom: 25px; color: var(--gimme-grey); }
+
+.quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 50px; }
+.link-card { 
+    height: 450px; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 40px; 
+    color: white; text-decoration: none; border-radius: 4px; cursor: pointer; transition: var(--transition); 
+}
+.link-card:hover { transform: translateY(-10px); }
+.link-card:before { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); z-index: 1; }
+.link-card h3 { position: relative; z-index: 2; letter-spacing: 3px; font-weight: 400; margin: 0; font-size: 1.2rem; }
+
+/* 5. MOBILE RESPONSIVE FIXES (Unified Media Query) */
+@media (max-width: 768px) {
+    nav { padding: 15px 5%; flex-direction: column; gap: 15px; }
+    .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .nav-links a { margin: 5px 10px; font-size: 0.65rem; margin-left: 0; }
+    .btn-nav-book { width: 100%; margin-top: 10px; }
+
+    h2 { font-size: 1.8rem !important; }
+    .container { padding: 40px 15px !important; }
+
+    .hero h1 { font-size: 2.5rem; letter-spacing: 8px; }
+    .hero p { font-size: 0.8rem; letter-spacing: 3px; }
+
+    .about-home, .quick-links, .wallet-grid { 
+        grid-template-columns: 1fr !important; 
+        gap: 40px !important; 
+    }
+
+    .about-image-container { order: -1; }
+
+    /* Membership Specifics */
+    #memberships .container > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        padding: 30px 20px !important;
+        text-align: center !important;
+    }
+
+    .mobile-border-top {
+        border-left: none !important;
+        border-top: 1px solid rgba(255,255,255,0.1) !important;
+        padding-left: 0 !important;
+        padding-top: 30px !important;
+        margin-top: 20px !important;
+    }
+
+    /* Locations Fix */
+    #locations .container > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    #locations div[style*="height: 350px"], #locations div[style*="height: 400px"] {
+        height: 250px !important;
+        width: 100% !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -316,12 +341,11 @@
         </div>
     </div>
     
-    <div style="margin: 20px 0;">
-        <span id="rangePriceDisplay" style="font-size: 1.5rem; font-weight: 800;">R120</span>
-        <span id="rangePerPerson" style="font-size: 0.8rem; color: var(--gimme-grey); margin-left: 10px; font-weight: 400;">(R120.00 pp)</span>
-    </div>
-    <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK RANGE</button>
+   <div style="margin: 20px 0;">
+    <div id="rangePriceDisplay"></div>
 </div>
+<button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK RANGE</button>
+   </div>
 <div style="background: var(--gimme-off-white); padding: 40px; border-radius: 4px; border-top: 4px solid var(--gimme-gold);">
     <h3 style="letter-spacing: 2px;">INTERACTIVE GAMES</h3>
     <p style="font-size: 0.85rem; color: var(--gimme-grey); min-height: 50px;">Aim for targets and test your accuracy. Fun for kids and pros alike.</p>
@@ -345,12 +369,11 @@
         </div>
     </div>
     
-    <div style="margin: 20px 0;">
-        <span id="gamePriceDisplay" style="font-size: 1.5rem; font-weight: 800;">R120</span>
-        <span id="gamePerPerson" style="font-size: 0.8rem; color: var(--gimme-grey); margin-left: 10px; font-weight: 400;">(R120.00 pp)</span>
-    </div>
-    <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK GAMES</button>
+  <div style="margin: 20px 0;">
+    <div id="gamePriceDisplay"></div>
 </div>
+<button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK GAMES</button>
+   </div>
 <script>
 function calculateSessionPrice(type) {
     const players = parseInt(document.getElementById(type + 'Players').value);
@@ -413,21 +436,21 @@ function updatePrice(selectorId, displayId) {
         <span class="section-label">The Clubhouse</span>
         <h2 style="font-size: 2.5rem; font-weight: 300; letter-spacing: 4px;">CLUB MEMBERSHIP</h2>
         
-        <div style="max-width: 800px; margin: 0 auto 60px auto; background: var(--gimme-green); color: white; padding: 60px; border-radius: 4px; text-align: left; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; border-bottom: 5px solid var(--gimme-gold);">
+   <div style="max-width: 800px; margin: 0 auto 60px auto; background: var(--gimme-green); color: white; padding: 60px; border-radius: 4px; text-align: left; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; border-bottom: 5px solid var(--gimme-gold);">
     <div>
         <h3 style="color: var(--gimme-gold); margin-top: 0; font-size: 1.8rem; letter-spacing: 2px;">THE GIMME MEMBER</h3>
-        <p style="font-size: 1rem; opacity: 0.8; margin-bottom: 30px;">The club that pays for itself. Join today and your first hour every month is on us.</p>
+        <p style="font-size: 1rem; opacity: 0.8; margin-bottom: 30px;">The membership that pays for itself instantly. Join the inner circle of Cape Town golf.</p>
         <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 2.2;">
-            <li><strong style="color: var(--gimme-gold);">✓ 1 FREE Hour Monthly</strong> (Value: R230)</li>
-            <li><strong style="color: var(--gimme-gold);">✓ 20% OFF</strong> All extra bookings & guests</li>
-            <li><strong style="color: var(--gimme-gold);">✓ FREE Corkage</strong> At all Gimme venues</li>
+            <li><strong style="color: var(--gimme-gold);">✓ R400 Monthly Credit</strong> Loaded to your Playtomic Wallet</li>
+            <li><strong style="color: var(--gimme-gold);">✓ 10% OFF</strong> All simulator bookings & guest fees</li>
+            <li><strong style="color: var(--gimme-gold);">✓ FREE Corkage</strong> For your entire group</li>
             <li><strong style="color: var(--gimme-gold);">✓ 10% OFF</strong> All Food & Beverages</li>
         </ul>
     </div>
-    <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 40px;">
+    <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 40px;" class="mobile-border-top">
         <p style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px;">Monthly Dues</p>
         <div style="font-size: 3.5rem; font-weight: 800; color: var(--gimme-gold); line-height: 1;">R399</div>
-        <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px;">Effective cost after free hour: <strong>R169</strong></p>
+        <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px;">Get <strong>R400</strong> back in credit immediately.</p>
         <button class="btn" style="background: var(--gimme-gold); color: black; width: 100%; margin-top: 25px; font-weight: 900;">JOIN THE CLUB</button>
     </div>
 </div>
@@ -473,13 +496,20 @@ function updatePrice(selectorId, displayId) {
     </div>
 </div>
 <script>
+window.onload = function() {
+    calculateSessionPrice('range');
+    calculateSessionPrice('game');
+    updatePrice('eighteenHoleSelector', 'eighteenHolePrice');
+    updatePrice('nineHoleSelector', 'nineHolePrice');
+    updatePrice('coachSelector', 'coachPrice');
+    updatePrice('venueSelector', 'venuePrice');
+};
+
 function calculateSessionPrice(type) {
     const players = parseInt(document.getElementById(type + 'Players').value);
     const time = document.getElementById(type + 'Time').value;
     const displayTotal = document.getElementById(type + 'PriceDisplay');
-    const displayPP = document.getElementById(type + 'PerPerson');
     
-    // Clean pricing for standard sessions
     const pricing = {
         "1": { "30": 120, "60": 230, "90": 300 },
         "2": { "30": 200, "60": 380, "90": 500 },
@@ -489,19 +519,45 @@ function calculateSessionPrice(type) {
 
     const total = pricing[players][time];
     const perPerson = Math.round(total / players);
-    
-    // Member Price calculation (20% off)
-    const memberTotal = Math.round(total * 0.8);
+    const memberTotal = Math.round(total * 0.9);
 
-    displayTotal.innerHTML = `R${total} <span style="font-size: 0.9rem; color: #c5a059; display: block; margin-top: 5px;">Member Price: R${memberTotal}</span>`;
-    displayPP.innerText = '(~R' + perPerson + ' pp)';
+    displayTotal.innerHTML = `
+        <div class="price-row" style="display: flex; align-items: baseline; gap: 10px;">
+            <span style="font-size: 1.5rem; font-weight: 800;">R${total}</span>
+            <span style="font-size: 0.9rem; color: var(--gimme-grey); font-weight: 400;">(~R${perPerson} pp)</span>
+        </div>
+        <span style="font-size: 0.95rem; color: #c5a059; display: block; margin-top: 5px; font-weight:800;">
+            Members Price: R${memberTotal}
+        </span>`;
 }
 
 function updatePrice(selectorId, displayId) {
-    const val = document.getElementById(selectorId).value;
-    const memberVal = Math.round(val * 0.8);
-    // This handles the display for Coaching and Venue hire
-    document.getElementById(displayId).innerHTML = `R${val} <span style="font-size: 0.9rem; color: #c5a059; margin-left: 15px;">Member Price: R${memberVal}</span>`;
+    const selector = document.getElementById(selectorId);
+    const val = parseInt(selector.value);
+    const displayElement = document.getElementById(displayId);
+    
+    // Determine player count for Rounds based on the selector index (0=1 player, 1=2 players...)
+    const playerCount = selector.selectedIndex + 1;
+    const perPerson = Math.round(val / playerCount);
+    
+    if (displayId === 'venuePrice') {
+        displayElement.innerHTML = `R${val} <span style="font-size: 0.8rem; color: #888; display: block; font-weight: 400;">Flat Rate (No member discount)</span>`;
+    } else {
+        const memberVal = Math.round(val * 0.9);
+        
+        // Show "pp" for 9 and 18 Hole Rounds only
+        const isRound = displayId.includes('Hole'); 
+        const ppHTML = isRound ? `<span style="font-size: 0.9rem; color: var(--gimme-grey); font-weight: 400;">(~R${perPerson} pp)</span>` : '';
+
+        displayElement.innerHTML = `
+            <div class="price-row" style="display: flex; align-items: baseline; gap: 10px;">
+                <span style="font-size: 1.5rem; font-weight: 800;">R${val}</span>
+                ${ppHTML}
+            </div>
+            <span style="font-size: 0.95rem; color: #c5a059; display: block; margin-top: 5px; font-weight:800;">
+                Members Price: R${memberVal}
+            </span>`;
+    }
 }
 </script>
 

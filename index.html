@@ -7,6 +7,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
     
     <style>
+
+
+/* Update the .logo class to handle the flex layout */
+.logo { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    font-size: 1.2rem; 
+    font-weight: 300; 
+    letter-spacing: 4px; 
+    color: var(--gimme-green); 
+    cursor: pointer; 
+    text-transform: uppercase; 
+}
+.logo span { font-weight: 800; color: var(--gimme-gold); }
+
         :root {
             --gimme-green: #0a261d;
             --gimme-gold: #c5a059;
@@ -67,8 +83,18 @@
 </head>
 <body>
 
+
 <nav>
-    <div class="logo" onclick="showPage('home')">GIMME GOLF</div>
+    <div class="logo" onclick="showPage('home')">
+        <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="46" stroke="#c5a059" stroke-width="6"/>
+            <circle cx="50" cy="42" r="10" fill="#c5a059"/>
+            <path d="M50 58V82" stroke="#c5a059" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+        
+        GIMME <span>GOLF</span>
+    </div>
+    
     <div class="nav-links">
         <a onclick="showPage('home')">Home</a>
         <a onclick="showPage('products')">Sessions</a>
@@ -80,10 +106,10 @@
 
 <div id="home" class="page active">
     <section class="hero">
-        <h1>GIMME</h1>
-        <p>It's good from there.</p>
-        <button class="btn btn-nav-book" onclick="showPage('products')" style="padding: 20px 50px;">Book Now</button>
-    </section>
+    <h1>GIMME <span style="color: var(--gimme-gold); font-weight: 800;">GOLF</span></h1>
+    <p>It's good from there.</p>
+    <button class="btn btn-nav-book" onclick="showPage('products')" style="padding: 20px 50px;">Book Now</button>
+</section>
 
     <div class="container">
         <div class="about-home">
@@ -105,17 +131,19 @@
             </div>
         </div>
 
-        <div class="quick-links">
-            <a onclick="showPage('products')" class="link-card" style="background: url('https://www.golftown.com/on/demandware.static/-/Library-Sites-GolfTownSharedLibrary/default/images/flyout-images/ComeInAndPlay-Web_Fly.jpg') center/cover;">
-                <h3>THE SESSIONS</h3>
-            </a>
-            <a onclick="showPage('memberships')" class="link-card" style="background: url('https://uplink.gg/wp-content/uploads/2024/01/member.jpg') center/cover;">
-                <h3>THE CLUB</h3>
-            </a>
-            <a onclick="showPage('locations')" class="link-card" style="background: url('https://miro.medium.com/v2/1*8ZhgsyCNQRDaKEB7Rk_Udw.jpeg') center/cover;">
-                <h3>THE VENUES</h3>
-            </a>
-        </div>
+     <div class="quick-links">
+    <a onclick="showPage('products')" class="link-card" style="background: url('https://www.golftown.com/on/demandware.static/-/Library-Sites-GolfTownSharedLibrary/default/images/flyout-images/ComeInAndPlay-Web_Fly.jpg') center/cover;">
+        <h3>THE SESSIONS</h3>
+    </a>
+    
+    <a onclick="showPage('memberships')" class="link-card" style="background: url('https://uplink.gg/wp-content/uploads/2024/01/member.jpg') center/cover;">
+        <h3>THE CLUB</h3>
+    </a>
+    
+    <a onclick="showPage('locations')" class="link-card" style="background: url('https://miro.medium.com/v2/1*8ZhgsyCNQRDaKEB7Rk_Udw.jpeg') center/cover;">
+        <h3>THE VENUES</h3>
+    </a>
+</div>
     </div>
 </div>
 
@@ -165,68 +193,124 @@
                 <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK 9 HOLES</button>
             </div>
 
-            <div style="background: var(--gimme-off-white); padding: 40px; border-radius: 4px; border: 1px solid #ddd;">
-                <h3 style="letter-spacing: 2px;">PRO COACHING</h3>
-                <p style="font-size: 0.85rem; color: var(--gimme-grey); min-height: 50px;">
-                    In-depth <strong>swing and data analysis</strong> with a <strong>PGA Professional</strong> utilizing tour-level technology.
-                </p>
-                <div style="margin: 20px 0;">
-                    <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Select Package:</label>
-                    <select id="coachSelector" onchange="updatePrice('coachSelector', 'coachPrice')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
-                        <option value="500">60 Min Session - R500</option>
-                        <option value="1700">4x 60 Min Sessions - R1700</option>
-                        <option value="400">Junior 60 Min - R400</option>
-                        <option value="1500">4x Junior Sessions - R1500</option>
-                    </select>
-                </div>
-                <p style="font-size: 1.5rem; font-weight: 800; margin: 20px 0;" id="coachPrice">R500</p>
-                <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK COACHING</button>
-            </div>
-<div style="background: var(--gimme-off-white); padding: 40px; border-radius: 4px;">
-                <h3 style="letter-spacing: 2px;">THE RANGE</h3>
-                <p style="font-size: 0.85rem; color: var(--gimme-grey); min-height: 50px;">Dial in yardages with tour-level data. Professional solo practice environment.</p>
-                <div style="margin: 20px 0;">
-                    <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Select Duration:</label>
-                    <select id="rangeSelector" onchange="updatePrice('rangeSelector', 'rangePrice')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
-                        <option value="120">30 Minutes - R120</option>
-                        <option value="230">60 Minutes - R230</option>
-                        <option value="300">90 Minutes - R300</option>
-                    </select>
-                </div>
-                <p style="font-size: 1.5rem; font-weight: 800; margin: 20px 0;" id="rangePrice">R120</p>
-                <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK RANGE</button>
-            </div>
+          <div style="background: var(--gimme-off-white); padding: 40px; border-radius: 4px; border: 1px solid #ddd;">
+    <h3 style="letter-spacing: 2px;">PRO COACHING</h3>
+    <p style="font-size: 0.85rem; color: var(--gimme-grey); min-height: 50px;">In-depth swing analysis with a PGA Professional.</p>
+    <div style="margin: 20px 0;">
+        <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Select Package:</label>
+        <select id="coachSelector" onchange="updatePrice('coachSelector', 'coachPrice')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
+            <option value="499">60 Min Session - R499</option>
+            <option value="1699">4x 60 Min Sessions - R1699</option>
+            <option value="399">Junior 60 Min - R399</option>
+            <option value="1499">4x Junior Sessions - R1499</option>
+        </select>
+    </div>
+    <p style="font-size: 1.5rem; font-weight: 800; margin: 20px 0;" id="coachPrice">R499</p>
+    <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK COACHING</button>
+</div>
 
-            <div style="background: var(--gimme-off-white); padding: 40px; border-radius: 4px; border-top: 4px solid var(--gimme-gold);">
-                <h3 style="letter-spacing: 2px;">INTERACTIVE GAMES</h3>
-                <p style="font-size: 0.85rem; color: var(--gimme-grey); min-height: 50px;">Aim for targets and test your accuracy. Fun for kids and proficient golfers alike.</p>
-                <div style="margin: 20px 0;">
-                    <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Select Duration:</label>
-                    <select id="interactiveSelector" onchange="updatePrice('interactiveSelector', 'interactivePrice')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
-                        <option value="120">30 Minutes - R120</option>
-                        <option value="230">60 Minutes - R230</option>
-                    </select>
-                </div>
-                <p style="font-size: 1.5rem; font-weight: 800; margin: 20px 0;" id="interactivePrice">R120</p>
-                <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK GAMES</button>
-            </div>
+<div style="background: var(--gimme-off-white); padding: 40px; border-radius: 4px;">
+    <h3 style="letter-spacing: 2px;">THE RANGE</h3>
+    <p style="font-size: 0.85rem; color: var(--gimme-grey); min-height: 50px;">Dial in yardages with tour-level data. Professional practice environment.</p>
+    
+    <div style="margin: 20px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div>
+            <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Players:</label>
+            <select id="rangePlayers" onchange="calculateSessionPrice('range')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
+                <option value="1">1 Player</option>
+                <option value="2">2-Ball</option>
+                <option value="3">3-Ball</option>
+                <option value="4">4-Ball</option>
+            </select>
+        </div>
+        <div>
+            <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Duration:</label>
+            <select id="rangeTime" onchange="calculateSessionPrice('range')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
+                <option value="30">30 Mins</option>
+                <option value="60">60 Mins</option>
+                <option value="90">90 Mins</option>
+            </select>
+        </div>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <span id="rangePriceDisplay" style="font-size: 1.5rem; font-weight: 800;">R120</span>
+        <span id="rangePerPerson" style="font-size: 0.8rem; color: var(--gimme-grey); margin-left: 10px; font-weight: 400;">(R120.00 pp)</span>
+    </div>
+    <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK RANGE</button>
+</div>
 <div style="background: var(--gimme-off-white); padding: 40px; border-radius: 4px; border-top: 4px solid var(--gimme-gold);">
-                <h3 style="letter-spacing: 2px;">VENUE HIRE</h3>
-                <p style="font-size: 0.85rem; color: var(--gimme-grey); min-height: 50px;">Exclusive use of our facility for <strong>up to 30 guests</strong>. Perfect for work functions and private parties.</p>
-                <div style="margin: 20px 0;">
-                    <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Select Time Block:</label>
-                    <select id="venueSelector" onchange="updatePrice('venueSelector', 'venuePrice')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
-                        <option value="3000">3 Hours - R3000</option>
-                        <option value="3500">4 Hours - R3500</option>
-                        <option value="4000">5 Hours - R4000</option>
-                        <option value="4500">6 Hours - R4500</option>
-                        <option value="5000">7 Hours - R5000</option>
-                        <option value="5500">8 Hours - R5500</option>
-                    </select>
-                </div>
-                <p style="font-size: 1.5rem; font-weight: 800; margin: 20px 0;" id="venuePrice">R3000</p>
-                <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">ENQUIRE NOW</button>
-            </div>
+    <h3 style="letter-spacing: 2px;">INTERACTIVE GAMES</h3>
+    <p style="font-size: 0.85rem; color: var(--gimme-grey); min-height: 50px;">Aim for targets and test your accuracy. Fun for kids and pros alike.</p>
+    
+    <div style="margin: 20px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div>
+            <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Players:</label>
+            <select id="gamePlayers" onchange="calculateSessionPrice('game')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
+                <option value="1">1 Player</option>
+                <option value="2">2-Ball</option>
+                <option value="3">3-Ball</option>
+                <option value="4">4-Ball</option>
+            </select>
+        </div>
+        <div>
+            <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Duration:</label>
+            <select id="gameTime" onchange="calculateSessionPrice('game')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
+                <option value="30">30 Mins</option>
+                <option value="60">60 Mins</option>
+            </select>
+        </div>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <span id="gamePriceDisplay" style="font-size: 1.5rem; font-weight: 800;">R120</span>
+        <span id="gamePerPerson" style="font-size: 0.8rem; color: var(--gimme-grey); margin-left: 10px; font-weight: 400;">(R120.00 pp)</span>
+    </div>
+    <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">BOOK GAMES</button>
+</div>
+<script>
+function calculateSessionPrice(type) {
+    const players = parseInt(document.getElementById(type + 'Players').value);
+    const time = document.getElementById(type + 'Time').value;
+    const displayTotal = document.getElementById(type + 'PriceDisplay');
+    const displayPP = document.getElementById(type + 'PerPerson');
+    
+    const pricing = {
+        "1": { "30": 120, "60": 230, "90": 300 },
+        "2": { "30": 200, "60": 380, "90": 500 },
+        "3": { "30": 280, "60": 520, "90": 680 },
+        "4": { "30": 350, "60": 650, "90": 850 }
+    };
+
+    const total = pricing[players][time];
+    const perPerson = (total / players).toFixed(2);
+
+    displayTotal.innerText = 'R' + total;
+    displayPP.innerText = '(R' + perPerson + ' pp)';
+}
+
+// Simple price update for non-calculated fields (Coaching, Rounds)
+function updatePrice(selectorId, displayId) {
+    const val = document.getElementById(selectorId).value;
+    document.getElementById(displayId).innerText = 'R' + val;
+}
+</script>
+
+<div style="background: var(--gimme-off-white); padding: 40px; border-radius: 4px; border-top: 4px solid var(--gimme-gold);">
+    <h3 style="letter-spacing: 2px;">VENUE HIRE</h3>
+    <p style="font-size: 0.85rem; color: var(--gimme-grey); min-height: 50px;">Exclusive use of our facility for up to 30 guests.</p>
+    <div style="margin: 20px 0;">
+        <label style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 8px;">Select Time Block:</label>
+        <select id="venueSelector" onchange="updatePrice('venueSelector', 'venuePrice')" style="width: 100%; padding: 12px; border: 1px solid #ddd; font-weight: 700;">
+            <option value="2999">3 Hours - R2999</option>
+            <option value="3499">4 Hours - R3499</option>
+            <option value="3999">5 Hours - R3999</option>
+            <option value="4499">6 Hours - R4499</option>
+        </select>
+    </div>
+    <p style="font-size: 1.5rem; font-weight: 800; margin: 20px 0;" id="venuePrice">R2999</p>
+    <button class="btn btn-primary" style="width: 100%;" onclick="showPage('locations')">ENQUIRE NOW</button>
+</div>
         </div>
     </div>
 </div>
@@ -239,8 +323,102 @@
 </script>
 
 
+<div id="memberships" class="page">
+    <div class="container" style="text-align: center;">
+        <span class="section-label">The Clubhouse</span>
+        <h2 style="font-size: 2.5rem; font-weight: 300; letter-spacing: 4px;">CLUB MEMBERSHIP</h2>
+        
+        <div style="max-width: 800px; margin: 0 auto 60px auto; background: var(--gimme-green); color: white; padding: 60px; border-radius: 4px; text-align: left; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; border-bottom: 5px solid var(--gimme-gold);">
+    <div>
+        <h3 style="color: var(--gimme-gold); margin-top: 0; font-size: 1.8rem; letter-spacing: 2px;">THE GIMME MEMBER</h3>
+        <p style="font-size: 1rem; opacity: 0.8; margin-bottom: 30px;">The club that pays for itself. Join today and your first hour every month is on us.</p>
+        <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 2.2;">
+            <li><strong style="color: var(--gimme-gold);">✓ 1 FREE Hour Monthly</strong> (Value: R230)</li>
+            <li><strong style="color: var(--gimme-gold);">✓ 20% OFF</strong> All extra bookings & guests</li>
+            <li><strong style="color: var(--gimme-gold);">✓ FREE Corkage</strong> At all Gimme venues</li>
+            <li><strong style="color: var(--gimme-gold);">✓ 10% OFF</strong> All Food & Beverages</li>
+        </ul>
+    </div>
+    <div style="text-align: center; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 40px;">
+        <p style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px;">Monthly Dues</p>
+        <div style="font-size: 3.5rem; font-weight: 800; color: var(--gimme-gold); line-height: 1;">R399</div>
+        <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px;">Effective cost after free hour: <strong>R169</strong></p>
+        <button class="btn" style="background: var(--gimme-gold); color: black; width: 100%; margin-top: 25px; font-weight: 900;">JOIN THE CLUB</button>
+    </div>
+</div>
+<div class="container" style="text-align: center; padding-top: 0;">
+    <span class="section-label">The Wallet System</span>
+    <h2 style="font-size: 2.5rem; font-weight: 300; letter-spacing: 4px; margin-bottom: 50px;">PRE-PAID TOP UPS</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; text-align: left;">
+        
+        <div style="background: var(--gimme-off-white); padding: 30px; border-radius: 4px; border: 1px solid #eee;">
+            <h4 style="margin: 0; color: var(--gimme-grey); letter-spacing: 1px;">BIRDIE</h4>
+            <div style="font-size: 1.8rem; font-weight: 800; margin: 15px 0;">R499</div>
+            <p style="font-size: 0.85rem; color: var(--gimme-green); font-weight: 700; margin-bottom: 20px;">Get R550 Credits</p>
+            <button class="btn btn-primary" style="width: 100%; font-size: 0.7rem; letter-spacing: 1px;">TOP UP WALLET</button>
+        </div>
 
+        <div style="background: var(--gimme-off-white); padding: 30px; border-radius: 4px; border: 1px solid #eee;">
+            <h4 style="margin: 0; color: var(--gimme-grey); letter-spacing: 1px;">EAGLE</h4>
+            <div style="font-size: 1.8rem; font-weight: 800; margin: 15px 0;">R999</div>
+            <p style="font-size: 0.85rem; color: var(--gimme-green); font-weight: 700; margin-bottom: 20px;">Get R1200 Credits</p>
+            <button class="btn btn-primary" style="width: 100%; font-size: 0.7rem; letter-spacing: 1px;">TOP UP WALLET</button>
+        </div>
 
+        <div style="background: var(--gimme-off-white); padding: 30px; border-radius: 4px; border: 2px solid var(--gimme-gold); position: relative;">
+            <span style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gimme-gold); color: white; padding: 2px 10px; font-size: 0.6rem; font-weight: 800; letter-spacing: 1px;">MOST POPULAR</span>
+            <h4 style="margin: 0; color: var(--gimme-grey); letter-spacing: 1px;">ALBATROSS</h4>
+            <div style="font-size: 1.8rem; font-weight: 800; margin: 15px 0;">R2499</div>
+            <p style="font-size: 0.85rem; color: var(--gimme-green); font-weight: 700; margin-bottom: 20px;">Get R3200 Credits</p>
+            <button class="btn btn-primary" style="width: 100%; font-size: 0.7rem; letter-spacing: 1px; background: var(--gimme-gold); color: black;">TOP UP WALLET</button>
+        </div>
+
+        <div style="background: var(--gimme-off-white); padding: 30px; border-radius: 4px; border: 1px solid #eee;">
+            <h4 style="margin: 0; color: var(--gimme-grey); letter-spacing: 1px;">HOLE-IN-ONE</h4>
+            <div style="font-size: 1.8rem; font-weight: 800; margin: 15px 0;">R4999</div>
+            <p style="font-size: 0.85rem; color: var(--gimme-green); font-weight: 700; margin-bottom: 20px;">Get R7000 Credits</p>
+            <button class="btn btn-primary" style="width: 100%; font-size: 0.7rem; letter-spacing: 1px;">TOP UP WALLET</button>
+        </div>
+
+    </div>
+    <p style="margin-top: 30px; font-size: 0.8rem; color: var(--gimme-grey);">Wallet credits are linked to your Playtomic profile and can be used for any booking at Gimme Golf.</p>
+</div>
+        </div>
+    </div>
+</div>
+<script>
+function calculateSessionPrice(type) {
+    const players = parseInt(document.getElementById(type + 'Players').value);
+    const time = document.getElementById(type + 'Time').value;
+    const displayTotal = document.getElementById(type + 'PriceDisplay');
+    const displayPP = document.getElementById(type + 'PerPerson');
+    
+    // Clean pricing for standard sessions
+    const pricing = {
+        "1": { "30": 120, "60": 230, "90": 300 },
+        "2": { "30": 200, "60": 380, "90": 500 },
+        "3": { "30": 280, "60": 520, "90": 680 },
+        "4": { "30": 350, "60": 650, "90": 850 }
+    };
+
+    const total = pricing[players][time];
+    const perPerson = Math.round(total / players);
+    
+    // Member Price calculation (20% off)
+    const memberTotal = Math.round(total * 0.8);
+
+    displayTotal.innerHTML = `R${total} <span style="font-size: 0.9rem; color: #c5a059; display: block; margin-top: 5px;">Member Price: R${memberTotal}</span>`;
+    displayPP.innerText = '(~R' + perPerson + ' pp)';
+}
+
+function updatePrice(selectorId, displayId) {
+    const val = document.getElementById(selectorId).value;
+    const memberVal = Math.round(val * 0.8);
+    // This handles the display for Coaching and Venue hire
+    document.getElementById(displayId).innerHTML = `R${val} <span style="font-size: 0.9rem; color: #c5a059; margin-left: 15px;">Member Price: R${memberVal}</span>`;
+}
+</script>
 
 <div id="locations" class="page">
     <div class="container">
@@ -298,20 +476,24 @@
                 
                 <div style="display: grid; gap: 25px;">
                     <div>
+    <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">How do I book a bay?</p>
+    <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">We use the <strong>Playtomic App</strong>, but you can simply click the <strong>BOOK BAY</strong> button at the top right of this page to get started!</p>
+</div>
+                    <div>
                         <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">Do I need my own clubs?</p>
-                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">No, we provide premium rental sets at both locations, though you are welcome to bring your own clean clubs.</p>
+                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">No. We have <strong>premium rental sets</strong> available at both locations. However, you are more than welcome to bring your own clubs (please ensure they are clean!).</p>
+                    </div>
+                    <div>
+                        <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">What is the dress code?</p>
+                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">Keep it casual! Unlike traditional courses, we have no strict dress code. <strong>Sneakers are perfect</strong>, but please note: <strong>no metal spikes</strong> are allowed as they damage our turf.</p>
                     </div>
                     <div>
                         <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">Can I bring guests?</p>
-                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">Absolutely. Each bay booking allows for up to 4 players. Members receive guest passes as part of their package.</p>
+                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">Yes! Members are the heroes here—your <strong>20% discount applies to the entire booking</strong>, so your guests play for less whenever they are with you.</p>
                     </div>
                     <div>
-                        <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">Is coaching available?</p>
-                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">Yes, we have resident PGA professionals available for bookings. High-speed camera analysis is included in all sessions.</p>
-                    </div>
-                    <div>
-                        <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">Do you host corporate events?</p>
-                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">Yes, our facilities are designed for social and corporate gatherings. Contact us for custom event packages.</p>
+                        <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">What is the cancellation policy?</p>
+                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">Life happens. You can cancel or reschedule via Playtomic up to <strong>24 hours</strong> before your booking for a full refund to your wallet.</p>
                     </div>
                 </div>
             </div>
@@ -329,37 +511,33 @@
     </div>
 </footer>
 
-
-
 <script>
+    // Existing showPage function
     function showPage(pageId) {
-        // 1. Hide all pages
         const pages = document.querySelectorAll('.page');
         pages.forEach(p => p.classList.remove('active'));
         
-        // 2. Show the target page
         const targetPage = document.getElementById(pageId);
         if (targetPage) {
             targetPage.classList.add('active');
         }
 
-        // 3. Scroll to the top of the new page
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     }
 
-    // Default: Ensure contact links on the same page work
+    // Existing smooth scroll logic
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const target = document.querySelector(this.getAttribute('href'));
+            if(target) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 </script>
-
-</body>
-</html>

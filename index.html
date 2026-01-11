@@ -8,6 +8,36 @@
     
     <style>
 
+.map-responsive {
+    overflow: hidden;
+    position: relative;
+    height: 300px; /* Adjust height as needed */
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu-toggle div {
+    width: 25px;
+    height: 2px;
+    background-color: var(--gimme-green);
+    transition: 0.3s;
+}
+
 /* 1. RESET & VARIABLES */
 :root {
     --gimme-green: #0a261d;
@@ -130,7 +160,6 @@ nav {
 
 .hero h1 { font-size: 5rem; font-weight: 200; letter-spacing: 20px; margin: 0; text-shadow: 0 4px 15px rgba(0,0,0,0.6); }
 .hero p { font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; margin: 20px 0 30px 0; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
-
 .about-home { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .about-home img { width: 100%; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
 .about-home h2 { font-size: 2.2rem; font-weight: 300; letter-spacing: 2px; margin-top: 0; line-height: 1.2; }
@@ -147,23 +176,85 @@ nav {
 
 /* 5. MOBILE RESPONSIVE FIXES (Unified Media Query) */
 @media (max-width: 768px) {
-    nav { padding: 15px 5%; flex-direction: column; gap: 15px; }
-    .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .nav-links a { margin: 5px 10px; font-size: 0.65rem; margin-left: 0; }
-    .btn-nav-book { width: 100%; margin-top: 10px; }
 
+#locations .container > div {
+        grid-template-columns: 1fr !important;
+        gap: 50px !important;
+    }
+    /* Updated Nav: Keeps Logo & Hamburger on one line */
+    nav { 
+        padding: 15px 5%; 
+        flex-direction: row !important; 
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+    }
+
+    /* Shows the Hamburger Icon */
+    .menu-toggle { display: flex; }
+
+    /* Updated Links: Dropdown Style */
+    .nav-links {
+        display: none; 
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 20px 0;
+        border-bottom: 2px solid var(--gimme-gold);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+
+    /* Shows menu when JS adds .active class */
+    .nav-links.active {
+        display: flex;
+    }
+    .nav-links a { 
+        margin: 15px 0 !important; 
+        font-size: 0.85rem !important; 
+        width: 100%;
+        text-align: center;
+        margin-left: 0 !important;
+    }
+    .btn-nav-book { 
+        width: 80% !important; 
+        margin: 10px auto !important; 
+    }
+
+    /* General Layout Fixes */
     h2 { font-size: 1.8rem !important; }
     .container { padding: 40px 15px !important; }
-
     .hero h1 { font-size: 2.5rem; letter-spacing: 8px; }
     .hero p { font-size: 0.8rem; letter-spacing: 3px; }
-
-    .about-home, .quick-links, .wallet-grid { 
+.about-home, .quick-links, .wallet-grid { 
         grid-template-columns: 1fr !important; 
         gap: 40px !important; 
     }
 
-    .about-image-container { order: -1; }
+    /* ONLY on the home page: put the image AFTER the text */
+    #home .about-image-container { 
+        order: 2 !important; 
+    }
+    #home .about-content {
+        order: 1 !important;
+    }
+
+    /* On all other pages (like About Us), the image stays at the top */
+    .about-image-container { 
+        order: -1; 
+    }
+
+    /* FOOTER MOBILE FIX */
+    footer .container > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 60px !important;
+    }
+    footer h3, footer .section-label {
+        text-align: center;
+    }
 
     /* Membership Specifics */
     #memberships .container > div[style*="grid-template-columns"] {
@@ -171,7 +262,6 @@ nav {
         padding: 30px 20px !important;
         text-align: center !important;
     }
-
     .mobile-border-top {
         border-left: none !important;
         border-top: 1px solid rgba(255,255,255,0.1) !important;
@@ -185,10 +275,21 @@ nav {
         grid-template-columns: 1fr !important;
         gap: 30px !important;
     }
-
     #locations div[style*="height: 350px"], #locations div[style*="height: 400px"] {
         height: 250px !important;
         width: 100% !important;
+    }
+.link-card {
+        height: 200px !important; /* Reduces height from 450px to 200px */
+        padding: 20px !important; /* Smaller padding for smaller cards */
+        background-position: center !important; /* Ensures the middle of the image stays visible */
+    }
+    .link-card h3 {
+        font-size: 1rem !important; /* Slightly smaller text to fit the new height */
+        letter-spacing: 2px !important;
+    }
+    .quick-links {
+        gap: 15px !important; /* Tighter gap between the cropped cards */
     }
 }
     </style>
@@ -205,22 +306,32 @@ nav {
         </svg>
         GIMME <span>GOLF</span>
     </div>
-    <div class="nav-links">
-        <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('products')">Pricing</a> <a onclick="showPage('memberships')">Membership</a>
-        <a onclick="showPage('locations')">Locations</a>
-        <a onclick="showPage('products')" class="btn btn-nav-book" style="padding: 12px 25px; font-size: 0.7rem; margin-left: 20px;">Book Now</a> </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()" id="menuToggle">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a onclick="showPage('home'); toggleMenu()">Home</a>
+        <a onclick="showPage('about'); toggleMenu()">About Us</a> 
+        <a onclick="showPage('products'); toggleMenu()">Pricing</a> 
+        <a onclick="showPage('memberships'); toggleMenu()">Membership</a>
+        <a onclick="showPage('locations'); toggleMenu()">Locations</a>
+        <a onclick="showPage('products'); toggleMenu()" class="btn btn-nav-book" style="padding: 12px 25px; font-size: 0.7rem;">Book Now</a>
+    </div>
 </nav>
 
 <div id="home" class="page active">
     <section class="hero">
-    <h1>GIMME <span style="color: var(--gimme-gold); font-weight: 800;">GOLF</span></h1>
-    <p>It's good from there.</p>
-    <button class="btn btn-nav-book" onclick="showPage('products')" style="padding: 20px 50px;">Book Now</button>
-</section>
+        <h1>GIMME <span style="color: var(--gimme-gold); font-weight: 800;">GOLF</span></h1>
+        <p>It's good from there.</p>
+        <button class="btn btn-nav-book" onclick="showPage('products')" style="padding: 20px 50px;">Book Now</button>
+    </section>
 
     <div class="container">
-        <div class="about-home">
+        <div class="about-home" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
             <div class="about-content">
                 <span class="section-label">The Concept</span>
                 <h2>The World’s Best Courses, <br>Right Here in Cape Town.</h2>
@@ -230,31 +341,54 @@ nav {
                 <p>For those <strong>solos looking to improve</strong>, dive into a world-class training environment. Gain an edge with professional-grade <strong>range data and training aids</strong> designed to provide instant feedback and make every practice strike count.</p>
 
                 <p>Gimme Golf is also the ultimate destination for <strong>families, social groups, and high-energy work functions</strong>. Beyond the fairways, enjoy our <strong>interactive skill games</strong>, premium <strong>venue hire</strong> options, and a full selection of <strong>food and drinks</strong> to keep the energy high.</p>
-                
-
             </div>
             
             <div class="about-image-container">
-                <img src="https://assets.golfzongolf.com/dims4/default/e00f7f0/2147483647/strip/true/crop/748x421+10+0/resize/1000x563!/quality/90/?url=https%3A%2F%2Fk2-prod-golfzon.s3.us-east-1.amazonaws.com%2Fbrightspot%2Feb%2F5d%2Fb8e6fdaf41cf969dbcde3468fcc3%2Fkids-playing-on-golfzon-golf-simulator-in-busy-simulator-bar-space.jpg" alt="Interactive Golf Fun for Families and Groups">
+                <img src="https://assets.golfzongolf.com/dims4/default/e00f7f0/2147483647/strip/true/crop/748x421+10+0/resize/1000x563!/quality/90/?url=https%3A%2F%2Fk2-prod-golfzon.s3.us-east-1.amazonaws.com%2Fbrightspot%2Feb%2F5d%2Fb8e6fdaf41cf969dbcde3468fcc3%2Fkids-playing-on-golfzon-golf-simulator-in-busy-simulator-bar-space.jpg" alt="Interactive Golf Fun for Families and Groups" style="width: 100%; border-radius: 4px;">
             </div>
         </div>
 
-     <div class="quick-links">
-    <a onclick="showPage('products')" class="link-card" style="background: url('https://www.golftown.com/on/demandware.static/-/Library-Sites-GolfTownSharedLibrary/default/images/flyout-images/ComeInAndPlay-Web_Fly.jpg') center/cover;">
-        <h3>PRICING</h3>
-    </a>
-    
-    <a onclick="showPage('memberships')" class="link-card" style="background: url('https://uplink.gg/wp-content/uploads/2024/01/member.jpg') center/cover;">
-        <h3>THE CLUB</h3>
-    </a>
-    
-    <a onclick="showPage('locations')" class="link-card" style="background: url('https://miro.medium.com/v2/1*8ZhgsyCNQRDaKEB7Rk_Udw.jpeg') center/cover;">
-        <h3>THE VENUES</h3>
-    </a>
-</div>
+        <div style="margin-top: 80px; padding: 60px 40px; background: var(--gimme-off-white); border-radius: 4px; text-align: center;">
+            <span class="section-label">How it Works</span>
+            <h2 style="font-size: 2.2rem; margin-bottom: 20px;">What is a Golf Simulator?</h2>
+            <p style="max-width: 800px; margin: 0 auto 40px auto; color: var(--gimme-grey); font-size: 1.1rem;">
+                A golf simulator is a professional-grade indoor system that uses high-speed cameras and infrared sensors to track your swing and ball flight with professional level accuracy. 
+            </p>
+
+            
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px;">
+                <div style="padding: 20px;">
+                    <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">⛳</span>
+                    <h4 style="letter-spacing: 2px;">ANY COURSE, ANY TIME</h4>
+                    <p style="font-size: 0.85rem; color: var(--gimme-grey);">Play over 1800+ iconic courses like St Andrews or Pebble Beach in under an hour.</p>
+                </div>
+                <div style="padding: 20px;">
+                    <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">📊</span>
+                    <h4 style="letter-spacing: 2px;">TOUR-LEVEL DATA</h4>
+                    <p style="font-size: 0.85rem; color: var(--gimme-grey);">Get instant feedback on ball speed, launch angle, and spin to dial in your yardages.</p>
+                </div>
+                <div style="padding: 20px;">
+                    <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">🎯</span>
+                    <h4 style="letter-spacing: 2px;">INTERACTIVE GAMES</h4>
+                    <p style="font-size: 0.85rem; color: var(--gimme-grey);">Not just for pros. Enjoy skill-based games like Closest to the Pin or Longest Drive.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-links" style="margin-top: 80px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <a onclick="showPage('products')" class="link-card" style="background: url('https://www.golftown.com/on/demandware.static/-/Library-Sites-GolfTownSharedLibrary/default/images/flyout-images/ComeInAndPlay-Web_Fly.jpg') center/cover;">
+                <h3>PRICING</h3>
+            </a>
+            <a onclick="showPage('memberships')" class="link-card" style="background: url('https://uplink.gg/wp-content/uploads/2024/01/member.jpg') center/cover;">
+                <h3>THE CLUB</h3>
+            </a>
+            <a onclick="showPage('locations')" class="link-card" style="background: url('https://miro.medium.com/v2/1*8ZhgsyCNQRDaKEB7Rk_Udw.jpeg') center/cover;">
+                <h3>THE VENUES</h3>
+            </a>
+        </div>
     </div>
 </div>
-
 
 
 
@@ -430,6 +564,66 @@ function updatePrice(selectorId, displayId) {
     }
 </script>
 
+<div id="about" class="page">
+    <div class="container">
+        <span class="section-label">The Experience</span>
+        <h2 style="font-size: 3rem; font-weight: 300; margin-bottom: 40px;">Indoor Golf <span style="color: var(--gimme-gold);">Redefined.</span></h2>
+        
+        <div class="about-home" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-start;">
+            <div class="about-content">
+                <p style="font-size: 1.1rem; line-height: 1.7;">Gimme Golf removes the barriers of the traditional game. We’ve replaced slow play, strict dress codes, and weather dependency with a high-tech, social environment designed for efficiency and improvement.</p>
+                
+                <h4 style="margin-top: 30px; letter-spacing: 2px; color: var(--gimme-gold); font-weight: 800;">GLOBAL COURSE SELECTION</h4>
+                <p>Play over 1,800 world-renowned courses in 4K detail. From St. Andrews to Pebble Beach, we provide access to the world’s most iconic fairways right here in Cape Town.</p>
+                
+                <h4 style="margin-top: 30px; letter-spacing: 2px; color: var(--gimme-gold); font-weight: 800;">ALL-WEATHER PLAY</h4>
+                <p>Golf 365 days a year in a climate-controlled lounge. Our bays eliminate course closures due to rain or wind, allowing for consistent practice and play regardless of the season.</p>
+
+                <h4 style="margin-top: 30px; letter-spacing: 2px; color: var(--gimme-gold); font-weight: 800;">TIME EFFICIENCY</h4>
+                <p>With no walking between shots or searching for balls, a solo player can complete 18 holes in under 60 minutes. It’s the fastest way to fit a full round into a busy schedule.</p>
+
+                <h4 style="margin-top: 30px; letter-spacing: 2px; color: var(--gimme-gold); font-weight: 800;">DATA-DRIVEN IMPROVEMENT</h4>
+                <p>Our launch monitors capture instant data on ball speed, launch angle, and club path. This real-time feedback removes the guesswork from your practice sessions, helping you refine your swing faster.</p>
+
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+    <button onclick="showPage('products')" class="btn btn-primary">View Pricing & Play</button>
+    
+    <button 
+        onclick="document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })" 
+        onmouseover="this.style.backgroundColor='var(--gimme-gold)'; this.style.color='#000'; this.style.borderColor='var(--gimme-gold)';" 
+        onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--gimme-gold)'; this.style.borderColor='var(--gimme-gold)';"
+        class="btn" 
+        style="background: transparent; border: 1px solid var(--gimme-gold); color: var(--gimme-gold); padding: 12px 25px; transition: all 0.3s ease; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+        View FAQs
+    </button>
+</div>
+            </div>
+
+            <div class="about-image-container">
+                <img src="https://golfbar.co.za/wp-content/uploads/2023/08/Really-Fast-Rounds.jpg" alt="Gimme Golf Fast Rounds" style="width: 100%; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+
+        <div style="margin-top: 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px; border-top: 1px solid #eee; padding-top: 60px; text-align: center;">
+            <div>
+                <h3 style="font-size: 2.5rem; margin-bottom: 5px; font-weight: 800;">1800+</h3>
+                <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: var(--gimme-gold);">Global Courses</p>
+            </div>
+            <div>
+                <h3 style="font-size: 2.5rem; margin-bottom: 5px; font-weight: 800;">98%</h3>
+                <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: var(--gimme-gold);">Simulator Precision</p>
+            </div>
+            <div>
+                <h3 style="font-size: 2.5rem; margin-bottom: 5px; font-weight: 800;">60 Min (pp)</h3>
+                <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: var(--gimme-gold);">Round of 18</p>
+            </div>
+            <div>
+                <h3 style="font-size: 2.5rem; margin-bottom: 5px; font-weight: 800;">0</h3>
+                <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: var(--gimme-gold);">Lost Balls</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="memberships" class="page">
     <div class="container" style="text-align: center;">
@@ -441,7 +635,7 @@ function updatePrice(selectorId, displayId) {
         <h3 style="color: var(--gimme-gold); margin-top: 0; font-size: 1.8rem; letter-spacing: 2px;">THE GIMME MEMBER</h3>
         <p style="font-size: 1rem; opacity: 0.8; margin-bottom: 30px;">The membership that pays for itself instantly. Join the inner circle of Cape Town golf.</p>
         <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 2.2;">
-            <li><strong style="color: var(--gimme-gold);">✓ R400 Monthly Credit</strong> Loaded to your Playtomic Wallet</li>
+            <li><strong style="color: var(--gimme-gold);">✓ R400 Monthly Credit</strong> In your Playtomic Wallet</li>
             <li><strong style="color: var(--gimme-gold);">✓ 10% OFF</strong> All simulator bookings & guest fees</li>
             <li><strong style="color: var(--gimme-gold);">✓ FREE Corkage</strong> For your entire group</li>
             <li><strong style="color: var(--gimme-gold);">✓ 10% OFF</strong> All Food & Beverages</li>
@@ -566,9 +760,14 @@ function updatePrice(selectorId, displayId) {
         <span class="section-label">Find a Bay</span>
         <h2 style="font-size: 2.5rem; font-weight: 300; letter-spacing: 4px; margin-bottom: 50px;">OUR VENUES</h2>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+        <div class="locations-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+            
             <div style="background: var(--gimme-off-white); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                <div style="height: 350px; background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiZ__hYalotJUesW6m8XMSOLBtKASA3GyIyw&s') center/cover;">
+                <div style="height: 350px; width: 100%;">
+                    <iframe 
+                        src="https://www.google.com/maps?q=Padel+365+Richmond+Park&output=embed" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
                 </div>
                 <div style="padding: 40px;">
                     <h3 style="letter-spacing: 2px; margin-top: 0;">RICHMOND PARK</h3>
@@ -582,26 +781,28 @@ function updatePrice(selectorId, displayId) {
                         <span>Sunday: 06:00 – 00:00</span>
                     </div>
                     <br><br>
-                    <a href="https://playtomic.com/clubs/padel-365-richmond-park" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center;">BOOK RICHMOND BAY</a>
+                    <a href="https://playtomic.com/clubs/padel-365-richmond-park" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center; display: block;">BOOK RICHMOND BAY</a>
                 </div>
             </div>
 
             <div style="background: var(--gimme-off-white); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                <div style="height: 350px; background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWojSvv-R5WZcL0EUrSVEtgV9eRm61GVfJ_g&s') center/cover;">
+                <div style="height: 350px; width: 100%;">
+                    <iframe 
+                        src="https://www.google.com/maps?q=Padel+365+Century+City+Slipstream+Way&output=embed" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
                 </div>
                 <div style="padding: 40px;">
                     <h3 style="letter-spacing: 2px; margin-top: 0;">CENTURY CITY</h3>
-                    <p style="font-size: 0.9rem; color: var(--gimme-grey);">Century Blvd (Padel 365 Precinct), Century City, 7441</p>
+                    <p style="font-size: 0.9rem; color: var(--gimme-grey);">33°53'52.2"S 18°30'38.9"E, Century City, Cape Town, 7441</p>
                     <p style="font-size: 0.9rem;"><strong>Direct:</strong> 076 452 6841</p>
                     <hr style="border: 0; border-top: 1px solid #eee; margin: 25px 0;">
                     <h5 style="margin-bottom: 12px; letter-spacing: 1px;">OPERATING HOURS</h5>
                     <div style="font-size: 0.8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; color: var(--gimme-grey);">
-                        <span>Mon - Thu: 06:00 – 23:00</span>
-                        <span>Fri - Sat: 06:00 – 00:00</span>
-                        <span>Sunday: 06:00 – 23:00</span>
+                        <span>Mon - Sun: 06:00 – 23:00</span>
                     </div>
                     <br><br>
-                    <a href="https://playtomic.com/clubs/padel-365-durbanville" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center;">BOOK CENTURY CITY BAY</a>
+                    <a href="https://playtomic.com/clubs/padel-365-durbanville" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center; display: block;">BOOK CENTURY CITY BAY</a>
                 </div>
             </div>
         </div>
@@ -611,48 +812,119 @@ function updatePrice(selectorId, displayId) {
 <footer style="background: var(--gimme-green); color: white; padding: 100px 0 50px 0;">
     <div class="container" style="padding-top: 0;">
         <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 100px;">
-            <div>
-                <span class="section-label" style="color: var(--gimme-gold);">Member Support</span>
-                <h3 style="font-weight: 300; letter-spacing: 3px; font-size: 1.8rem; margin-bottom: 40px;">F.A.Q.</h3>
-                
-                <div style="display: grid; gap: 25px;">
-                   <div>
-    <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">How do I book a bay?</p>
-    <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">We use the <strong>Playtomic App</strong>, but you can <strong>Check Pricing</strong> right here on our site to see our member vs. public rates before you head to the app!</p>
+<div>
+    <span class="section-label" style="color: var(--gimme-gold);">Member Support</span>
+    <h3 style="font-weight: 300; letter-spacing: 3px; font-size: 1.8rem; margin-bottom: 40px;">F.A.Q.</h3>
+    
+    <div style="display: grid; gap: 15px;">
+        <details style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; cursor: pointer;">
+            <summary style="font-weight: 700; color: var(--gimme-gold); font-size: 0.9rem; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                How do I book a bay?
+                <span style="font-size: 0.8rem; opacity: 0.5;">▼</span>
+            </summary>
+            <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8; margin-top: 10px; padding-left: 5px;">
+                We use the <strong>Playtomic App</strong>, but you can <strong>Check Pricing</strong> right here on our site to see our member vs. public rates before you head to the app!
+            </p>
+        </details>
+
+        <details style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; cursor: pointer;">
+            <summary style="font-weight: 700; color: var(--gimme-gold); font-size: 0.9rem; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                How much time should I book?
+                <span style="font-size: 0.8rem; opacity: 0.5;">▼</span>
+            </summary>
+            <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8; margin-top: 10px; padding-left: 5px;">
+                As a rule of thumb: <strong>1 Hour per person</strong> to play 18 holes. A solo player can finish in 1 hour, while a group of 4 should book a 3 to 4-hour session to enjoy the full round.
+            </p>
+        </details>
+
+        <details style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; cursor: pointer;">
+            <summary style="font-weight: 700; color: var(--gimme-gold); font-size: 0.9rem; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                Can I bring my own alcohol?
+                <span style="font-size: 0.8rem; opacity: 0.5;">▼</span>
+            </summary>
+            <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8; margin-top: 10px; padding-left: 5px;">
+                Yes! A corkage fee of <strong>R30 per person</strong> applies for non-members. 
+                <span style="color: var(--gimme-gold); display: block; margin-top: 5px;"><strong>Member Perk:</strong> Corkage is completely waived for Gimme Golf Members.</span>
+            </p>
+        </details>
+
+        <details style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; cursor: pointer;">
+            <summary style="font-weight: 700; color: var(--gimme-gold); font-size: 0.9rem; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                Do I need my own clubs?
+                <span style="font-size: 0.8rem; opacity: 0.5;">▼</span>
+            </summary>
+            <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8; margin-top: 10px; padding-left: 5px;">
+                No. We have <strong>premium rental sets</strong> available at both locations. However, you are more than welcome to bring your own clubs (please ensure they are clean!).
+            </p>
+        </details>
+
+        <details style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; cursor: pointer;">
+            <summary style="font-weight: 700; color: var(--gimme-gold); font-size: 0.9rem; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                What is the dress code?
+                <span style="font-size: 0.8rem; opacity: 0.5;">▼</span>
+            </summary>
+            <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8; margin-top: 10px; padding-left: 5px;">
+                Keep it casual! <strong>Sneakers are perfect</strong>, but please note: <strong>no metal spikes</strong> are allowed as they damage our turf.
+            </p>
+        </details>
+
+        <details style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; cursor: pointer;">
+            <summary style="font-weight: 700; color: var(--gimme-gold); font-size: 0.9rem; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                Can I bring guests?
+                <span style="font-size: 0.8rem; opacity: 0.5;">▼</span>
+            </summary>
+            <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8; margin-top: 10px; padding-left: 5px;">
+                Yes! Members are the heroes here—your <strong>10% discount applies to the entire booking</strong>, so your guests play for less whenever they are with you.
+            </p>
+        </details>
+
+        <details style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; cursor: pointer;">
+            <summary style="font-weight: 700; color: var(--gimme-gold); font-size: 0.9rem; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                What is the cancellation policy?
+                <span style="font-size: 0.8rem; opacity: 0.5;">▼</span>
+            </summary>
+            <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8; margin-top: 10px; padding-left: 5px;">
+                You can cancel or reschedule via Playtomic up to <strong>24 hours</strong> before your booking for a full refund to your wallet.
+            </p>
+        </details>
+    </div>
 </div>
-                    <div>
-                        <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">Do I need my own clubs?</p>
-                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">No. We have <strong>premium rental sets</strong> available at both locations. However, you are more than welcome to bring your own clubs (please ensure they are clean!).</p>
-                    </div>
-                    <div>
-                        <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">What is the dress code?</p>
-                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">Keep it casual! Unlike traditional courses, we have no strict dress code. <strong>Sneakers are perfect</strong>, but please note: <strong>no metal spikes</strong> are allowed as they damage our turf.</p>
-                    </div>
-                    <div>
-                        <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">Can I bring guests?</p>
-                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">Yes! Members are the heroes here—your <strong>20% discount applies to the entire booking</strong>, so your guests play for less whenever they are with you.</p>
-                    </div>
-                    <div>
-                        <p style="font-weight: 700; color: var(--gimme-gold); margin-bottom: 5px; font-size: 0.9rem;">What is the cancellation policy?</p>
-                        <p style="font-size: 0.85rem; opacity: 0.7; line-height: 1.8;">Life happens. You can cancel or reschedule via Playtomic up to <strong>24 hours</strong> before your booking for a full refund to your wallet.</p>
-                    </div>
-                </div>
-            </div>
 
             <div id="contact">
                 <span class="section-label" style="color: var(--gimme-gold);">Enquiries</span>
                 <h3 style="font-weight: 300; letter-spacing: 3px; font-size: 1.8rem; margin-bottom: 40px;">GET IN TOUCH</h3>
-                <form style="display: grid; gap: 15px;">
+                
+                <form style="display: grid; gap: 15px; margin-bottom: 40px;">
                     <input type="email" placeholder="Email Address" style="padding: 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 2px;">
                     <textarea placeholder="Your Message" rows="4" style="padding: 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 2px;"></textarea>
-                    <button type="submit" class="btn" style="background: var(--gimme-gold); color: #000; font-weight: 900;">Send Message</button>
+                    <button type="submit" class="btn" style="background: var(--gimme-gold); color: #000; font-weight: 900; width: 100%;">Send Message</button>
                 </form>
+
+                <div style="padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); display: grid; gap: 12px;">
+                    <p style="font-size: 0.9rem; margin: 0; display: flex; align-items: center;">
+                        <strong style="color: var(--gimme-gold); letter-spacing: 1px; width: 70px;">PHONE:</strong> 
+                        <a href="tel:0729957911" style="color: white; text-decoration: none;">072 995 7911</a>
+                    </p>
+                    <p style="font-size: 0.9rem; margin: 0; display: flex; align-items: center;">
+                        <strong style="color: var(--gimme-gold); letter-spacing: 1px; width: 70px;">EMAIL:</strong> 
+                        <a href="mailto:gimmegolfcpt@gmail.com" style="color: white; text-decoration: none;">gimmegolfcpt@gmail.com</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </footer>
 
 <script>
+
+function toggleMenu() {
+    // Only toggle if we are on a mobile screen
+    if (window.innerWidth <= 768) {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.toggle('active');
+    }
+}
+
     // Existing showPage function
     function showPage(pageId) {
         const pages = document.querySelectorAll('.page');
